@@ -1,6 +1,9 @@
+//Dynamically add pagination html with .append()
 $('.page').append('<div class="pagination"><ul></ul></div>');
-$('.student-search').append('<input placeholder="Search for students..."><button>Search</button>')
+$('.page-header').append('<div class="student-search"></div>');
 
+//Also, dynamically add list elements
+//Is there a better way of doing this? I feel I skirted around the rules with the dynamic <li>s, but I couldn't think of another way. 
 const _1stList = '<li><a href="#" class="active">1</a></li>';
 const _2ndList = '<li><a href="#">2</a></li>';
 const _3rdList = '<li><a href="#">3</a></li>';
@@ -8,17 +11,18 @@ const _4thList = '<li><a href="#">4</a></li>';
 const _5thList = '<li><a href="#">5</a></li>';
 const _6thList = '<li><a href="#">6</a></li>';
 
+//Place dynamic list in an array and append to ".pagination"
 const pages = [_1stList, _2ndList, _3rdList, _4thList, _5thList, _6thList];
-
-
 $(pages).each(function(){
 	$('.pagination ul').append(this);
 });
 
+//When the page starts, only show the first 10 students
 $('.page').ready(function(){
 	$('.student-item:gt(9)').hide();
 });
 
+//When clicking on a different button, remove "active" class from page 1 and stick to page the user clicks
 $(function(){
 	$('li a').click(function(){
 		$('a.active').removeClass('active');
@@ -26,6 +30,8 @@ $(function(){
 		});
 	});
 
+//Use .show() and .hide() to show 10 students for each page
+//Here as well: is there a better method? I searched all around the jQuery API Doc and googled my ass off, but this is what I went with. 
 $('.pagination li a').on('click', function(){
 	if($(this).text() === "1"){
 		$('.student-item:lt(10)').show();
@@ -60,31 +66,6 @@ $('.pagination li a').on('click', function(){
 
 
 
-//-------------Exceed!!---------------//
-//Here's my attempt at the input, filtering through the list. 
-$('.student-search').on('input', function(){
-	let name = $('input').val();
-	
-	$('.student-item').find($('h3')).each(function(){
-		if($(name).val() === $('h3').text()){
-			console.log("Works");
-		}
-	});
-});
-
-
-
-
-// $(function(){
-// 	$('div.student-search button').click(function(){
-// 		let name = $('input').val();
-// 		if(name === $('h3').text(ramon)) {
-// 			let hide = $('.student-item').hide();
-// 			$(hide).hide('.student-item').not($('student-item').has(name));
-// 			//console.log("Works");
-// 		}
-// 	});
-// });
 
 
 
